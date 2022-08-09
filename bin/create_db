@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('mydb.db');
+
+create_comments = `CREATE TABLE IF NOT EXISTS comments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    comment text NOT NULL,
+    image_url text NOT NULL,
+    author text NOT NULL,
+    parent_comment_id INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    FOREIGN KEY(parent_comment_id) REFERENCES comments(id)
+  );`;
+
+  db.run(create_comments);
